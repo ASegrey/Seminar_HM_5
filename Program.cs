@@ -96,6 +96,45 @@ namespace Tasks
             Console.WriteLine("Массив модифицированный => ");
             PrintArray(ModArray(array));
         }
+        static void Task3()
+        {
+            Console.WriteLine("Прямоугольный Массив 5х5 из чисел от 1 до 100 => ");
+            int [,] array = CreateArray(5,5,1,10);
+            PrintArray(array);
+            Console.WriteLine($"Строка с наименьшей суммой элементов => {FindMinSumRow(array)}");
+        }
+
+        static int FindMinSumRow(int [,] array)
+        {
+            int rows = array.GetLength(0);
+            int cols = array.GetLength(1);
+            int [] sum = new int [cols];
+            int minSum = 0;
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < cols; j++)
+                {
+                    sum[i] += array[i,j];
+                }
+            }
+//            Console.WriteLine("Суммы строк");
+//            for (int i = 0; i < sum.Length; i++)
+//            {
+//                Console.Write(sum[i] + " ");
+//            }
+//            Console.WriteLine();
+            minSum = sum[0];
+            int index = 0;
+            for (int i = 1; i < cols; i++)
+            {
+                if (sum[i] < minSum)
+                {
+                    index = i;
+                    minSum = sum[i];
+                }
+            }
+            return index+1;
+        }
         static int [,] ModArray(int [,] array)
         {
             
