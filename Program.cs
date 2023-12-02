@@ -57,7 +57,11 @@ namespace Tasks
                 }
                 case 4:
                 {
-//                    Task4();
+                    Console.WriteLine("Задайте двумерный массив из целых чисел.");
+                    Console.WriteLine("Напишите программу, которая удалит строку и столбец, на пересечении которых");
+                    Console.WriteLine("расположен наименьший элемент массива. Под удалением понимается создание");
+                    Console.WriteLine("нового двумерного массива без строки и столбца.");
+                    Task4();
                     break;
                 }
                 default:
@@ -102,6 +106,37 @@ namespace Tasks
             int [,] array = CreateArray(5,5,1,10);
             PrintArray(array);
             Console.WriteLine($"Строка с наименьшей суммой элементов => {FindMinSumRow(array)}");
+        }
+
+        static void Task4()
+        {
+            Console.WriteLine("Массив из целых чисел от 1 до 100 => ");
+            int [,] array = CreateArray(5,5,1,100);
+            PrintArray(array);  
+
+        }
+
+        static int [,] FindMinItemArray(int [,] array)
+        {
+            int rows = array.GetLength(0);
+            int cols = array.GetLength(1);
+            int [,] modArray = new int [rows-1,cols-1];
+            int minItem = array[0,0];
+            int [] item = new int [2];
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < cols; j++)
+                {
+                    if (array[i,j] < minItem)
+                    {
+                        minItem = array[i,j];
+                        item[0] = i;
+                        item[1] = j;
+                    }
+                }
+            }
+            // Нашли координаты минимального числа в массиве
+
         }
 
         static int FindMinSumRow(int [,] array)
