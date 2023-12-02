@@ -113,6 +113,8 @@ namespace Tasks
             Console.WriteLine("Массив из целых чисел от 1 до 100 => ");
             int [,] array = CreateArray(5,5,1,100);
             PrintArray(array);  
+            
+            PrintArray(FindMinItemArray(array));
 
         }
 
@@ -135,8 +137,57 @@ namespace Tasks
                     }
                 }
             }
+            Console.WriteLine($"Минимальный элемент в масссиве [{item[0]},{item[1]}]");
+            Console.WriteLine("Массив модифицирован => ");
             // Нашли координаты минимального числа в массиве
-
+            for (int i = 0; i < rows; i++)
+            {
+                if (i != item[0])
+                {
+                    if (i > item[0]){
+                        for (int j = 0; j < cols; j++)
+                        {
+                            if (j != item[1])
+                            {
+                                if (j > item[1])
+                                {
+                                    modArray[i-1,j-1] = array[i,j];
+//                                    Console.Write(modArray[i-1,j-1]);
+                                }
+                                else 
+                                {
+                                    modArray[i-1,j] = array[i,j];
+//                                    Console.Write(modArray[i-1,j]);
+                                }
+                            }
+//                            if (j < cols - 1){Console.Write(", ");} 
+                        }
+                    }
+                    else 
+                    {
+                        for (int j = 0; j < cols; j++)
+                        {
+                            if (j != item[1])
+                            {
+                                if (j > item[1])
+                                {
+                                    modArray[i,j-1] = array[i,j];
+    //                                Console.Write(modArray[i,j-1]);
+                                }
+                                else 
+                                {
+                                    modArray[i,j] = array[i,j];
+    //                                Console.Write(modArray[i,j]);
+                                }
+                            }
+                            
+    //                        if (j < cols - 1){Console.Write(", ");} 
+                        }                        
+                    }
+    //                Console.WriteLine();
+                }
+            }
+            return modArray;
         }
 
         static int FindMinSumRow(int [,] array)
