@@ -125,6 +125,8 @@ namespace Tasks
             int [,] modArray = new int [rows-1,cols-1];
             int minItem = array[0,0];
             int [] item = new int [2];
+            int rowDel = 0;
+            int colDel = 0;
             for (int i = 0; i < rows; i++)
             {
                 for (int j = 0; j < cols; j++)
@@ -132,59 +134,36 @@ namespace Tasks
                     if (array[i,j] < minItem)
                     {
                         minItem = array[i,j];
-                        item[0] = i;
-                        item[1] = j;
+                        rowDel = i;
+                        colDel = j;
                     }
                 }
             }
-            Console.WriteLine($"Минимальный элемент в масссиве [{item[0]},{item[1]}]");
+            Console.WriteLine($"Минимальный элемент в масссиве [{rowDel},{colDel}]");
             Console.WriteLine("Массив модифицирован => ");
             // Нашли координаты минимального числа в массиве
+            int subRow = 0;
+            int subCol = 0;
             for (int i = 0; i < rows; i++)
             {
-                if (i != item[0])
+                if (i != rowDel)
                 {
-                    if (i > item[0]){
-                        for (int j = 0; j < cols; j++)
+                    for (int j = 0; j < cols; j++)
+                    {
+                        if (j != colDel)
                         {
-                            if (j != item[1])
-                            {
-                                if (j > item[1])
-                                {
-                                    modArray[i-1,j-1] = array[i,j];
-//                                    Console.Write(modArray[i-1,j-1]);
-                                }
-                                else 
-                                {
-                                    modArray[i-1,j] = array[i,j];
-//                                    Console.Write(modArray[i-1,j]);
-                                }
-                            }
-//                            if (j < cols - 1){Console.Write(", ");} 
+                            modArray[i-subRow,j-subCol] = array[i,j];
+                        }
+                        else 
+                        {
+                            subCol=1;
                         }
                     }
-                    else 
-                    {
-                        for (int j = 0; j < cols; j++)
-                        {
-                            if (j != item[1])
-                            {
-                                if (j > item[1])
-                                {
-                                    modArray[i,j-1] = array[i,j];
-    //                                Console.Write(modArray[i,j-1]);
-                                }
-                                else 
-                                {
-                                    modArray[i,j] = array[i,j];
-    //                                Console.Write(modArray[i,j]);
-                                }
-                            }
-                            
-    //                        if (j < cols - 1){Console.Write(", ");} 
-                        }                        
-                    }
-    //                Console.WriteLine();
+                    subCol=0;
+                }
+                else
+                {
+                  subRow=1;  
                 }
             }
             return modArray;
